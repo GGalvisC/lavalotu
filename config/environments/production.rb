@@ -5,9 +5,9 @@ Rails.application.configure do
   config.cache_classes = true
 
   config.action_mailer.default_url_options = {host: 'lavap.herokuapp.com'} #I've also tried it without ":protocol => 'http'"
-  config.action_mailer.raise_delivery_errors = true
+  #config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
+  #config.action_mailer.perform_deliveries = true
   ActionMailer::Base.smtp_settings = {
     :address    => 'smtp.sendgrid.net',
     :port       => '587',
@@ -18,6 +18,11 @@ Rails.application.configure do
     :enable_starttls_auto => true
   }
 
+
+  config.cache_classes = true
+  config.to_prepare do
+    Devise::Mailer.layout "mailer" # email.haml or email.erb
+  end
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
