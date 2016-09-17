@@ -19,6 +19,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       set_flash_message(:notice, :success, kind: "facebook".capitalize) if is_navigational_format?
     else
       session["devise.facebook_data"] = env["omniauth.auth"]
+      @user.confirmation_token = @token
       redirect_to new_user_registration_url
     end
   end
